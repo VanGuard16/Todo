@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-3+!go)0$qgio!$z&_8ppsho$4uk*s6xbstu8f9leae9fw+sm3h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://todo-mm06.onrender.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -126,3 +126,4 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = 'login'
+

@@ -1,0 +1,72 @@
+
+    {% include 'navbar.html' %}
+    <div class="container">
+        <h3 class="pt-5 text-center mb-4">Django ToDo App</h3>
+        <div class="row">
+            <h4>My Day</h4>
+            <p class="text-muted">{% now "jS F Y" %}</p>
+            <div class="col-md-7 col-lg-7" style="height: 450px; overflow: scroll;">
+                <h5 class="mb-2">Uncompleted Tasks</h5>
+
+                <!-- List of all the tasks for the day -->
+                 {% if tasks|length == 0 %}
+                <div class="card m-1 mb-3 shadow-sm border-0">
+                    <div class="card-body d-flex flex-column flex-md-row justify-content-between align-items-center">
+                        <div class="text-muted">Uncompleted Tasks will appear here</div>
+                    </div>
+                </div>
+                    {% endif %}
+                 {% for task in tasks %}
+                <div class="card mb-3 shadow-sm border-0">
+                    <div class="card-body d-flex flex-column flex-md-row justify-content-between align-items-center">
+                        <h6 class="mb-3 mb-md-0">{{task.text}}</h6>
+                        <span class="d-flex gap-2" style="position: relative; float: right;">
+                            <a href="{% url 'mark_as_done' task.id %}" class="btn btn-success"><i class="fa fa-check"></i> Mark as Done</a>
+                            <a href="{% url 'deleteTask' task.id %}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                            <a href="{% url 'editTask' task.id %}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                        </span>
+                    </div>
+                </div>      
+                 {% endfor %}
+
+            </div>
+            <div class="col-md-5 col-lg-5">
+                <h5 class="mb-2">Completed Tasks</h5>
+                <!-- List of all the tasks that have completed -->
+                 {% if completed_tasks|length == 0 %}
+                <div class="card m-1 mb-3 shadow-sm border-0">
+                    <div class="card-body d-flex flex-column flex-md-row justify-content-between align-items-center">
+                        <div class="text-muted">Completed Tasks will appear here</div>
+                    </div>
+                </div>
+                    {% endif %}
+                {% for task in completed_tasks %}
+                <div class="card m-1 mb-3 shadow-sm border-0">
+                    <div class="card-body d-flex flex-column flex-md-row justify-content-between align-items-center">
+                        <h6 class="mb-3 mb-md-0">{{task.text}}</h6>
+                        <span style="position: relative; float: right;">
+                            <a href="{% url 'mark_as_done' task.id %}" class="btn btn-success"><i class="fa fa-ban"></i> Mark as Undone</a>
+                            <a href="{% url 'deleteTask' task.id %}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                            <a href="{% url 'editTask' task.id %}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                        </span>
+                    </div>
+                </div>      
+                 {% endfor %}
+            </div>
+        </div>
+
+     
+            <!-- ...existing code... -->
+            </div>
+        </div>
+        <!-- Fixed footer form so it doesn't overlap the task list -->
+        <footer class="fixed-bottom bg-light py-3 border-top">
+            <div class="container">
+                <form method="POST" action="{% url 'addTask' %}" class="d-flex justify-content-center">
+                    {% csrf_token %}
+                    <input type="text" name="text" class="form-control me-2" placeholder="Add a task" style="max-width:720px;">
+                    <button type="submit" class="btn btn-primary" style="width: 150px;"><i class="fa fa-plus"></i> Add</button>
+                </form>
+            </div>
+        </footer>
+    </div>

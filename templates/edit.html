@@ -1,0 +1,39 @@
+{% include 'navbar.html' %}
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h3 class="mb-4">Edit Task</h3>
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <form method="POST" action="{% url 'editTask' task.id %}">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="taskText" class="form-label">Task</label>
+              <input type="text" class="form-control" id="taskText" name="text" value="{{ task.text }}" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="taskStatus" class="form-label">Status</label>
+              <select class="form-control" id="taskStatus" name="is_completed">
+                <option value="False" {% if not task.is_completed %}selected{% endif %}>Incomplete</option>
+                <option value="True" {% if task.is_completed %}selected{% endif %}>Completed</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Created</label>
+              <p class="form-control-plaintext">{{ task.created_at }}</p>
+            </div>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+              <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</html>

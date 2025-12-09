@@ -1,0 +1,23 @@
+{% include 'navbar.html' %}
+
+<div class="container mt-4">
+    {% if searched %}
+        <h3 class="mb-4">Search Results for "{{ searched }}"</h3>
+        {% if tasks %}
+            {% for task in tasks %}
+            <div class="card m-2">
+                <div class="card-body">
+                    <p>{{ task.text }}</p>  <!-- Full text displayed here -->
+                    <small class="text-muted">Created: {{ task.created_at }}</small>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-muted">No tasks found matching "{{ searched }}"</p>
+        {% endif %}
+    {% else %}
+        <p>Enter a search term above.</p>
+    {% endif %}
+    <a class="btn btn-primary mx-2" href="{% url 'home' %}">Back</a>
+
+</div>
